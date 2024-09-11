@@ -6,7 +6,7 @@
 FROM python:3.11-bullseye
 
 RUN apt update && apt install -y ffmpeg
-RUN pip3 install aTrain@git+https://github.com/SjDayg/aTrain.git --extra-index-url https://download.pytorch.org/whl/cu118
+RUN pip3 install aTrain@git+https://github.com/cyverse-austria/aTrain.git@docker --extra-index-url https://download.pytorch.org/whl/cu118
 RUN aTrain init
 
 EXPOSE 8080
