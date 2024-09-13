@@ -3,21 +3,21 @@
 # https://github.com/SjDayg/aTrain/tree/main
 # docker build --no-cache -t mbwali/atrain:v1.1.0
 # docker run -it -p 8080:8080 mbwali/atrain:v1.1.0
-FROM python:3.11-bullseye
+# Use a slimmer version of the base image
+FROM python:3.11-slim-bullseye
 
 # Create a non-root user and group, and set the home directory
-RUN groupadd -r atrainuser && useradd --no-log-init -r -g atrainuser -d /home/atrainuser atrainuser
+RUN groupadd -r atrainuser && useradd --no-log-init -r -g atrainuser -d /home/atrainuser atrainuser && \
+    mkdir -p /home/atrainuser && chown atrainuser:atrainuser /home/atrainuser
 
-# Create the home directory and set appropriate permissions
-RUN mkdir -p /home/atrainuser && chown atrainuser:atrainuser /home/atrainuser
-
-# Install necessary packages as root
-RUN apt update && apt install -y ffmpeg
+# Install necessary packages and clean up to reduce image size
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg git && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory to the non-root user's home
 WORKDIR /home/atrainuser
 
-# Switch to non-root user before installing Python packages to avoid permission issues
+# Switch to non-root user
 USER atrainuser
 
 # Set environment variables to ensure Python packages are installed in the user's home directory
@@ -35,4 +35,3 @@ EXPOSE 8080
 
 # Run as non-root user
 ENTRYPOINT ["aTrain", "startserver"]
-
