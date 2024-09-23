@@ -1,9 +1,5 @@
-#FROM debian:latest
-# https://github.com/JuergenFleiss/aTrain/pull/21
-# https://github.com/SjDayg/aTrain/tree/main
 # docker build --no-cache -t mbwali/atrain:v1.1.0
 # docker run -it -p 8080:8080 mbwali/atrain:v1.1.0
-# Use a slimmer version of the base image
 FROM python:3.11-slim-bullseye
 
 # Create a non-root user and group, and set the home directory
