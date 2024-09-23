@@ -1,3 +1,6 @@
+# docker build --no-cache -t mbwali/atrain:v1.1.0
+# docker run -it -p 8080:8080 mbwali/atrain:v1.1.0
+
 FROM python:3.11-slim-bullseye
 
 ARG USERNAME=atrainuser
