@@ -25,10 +25,14 @@ USER $USERNAME
 WORKDIR /home/workspace/
 
 # Install Python dependencies without caching
-RUN pip install --no-cache-dir git+https://github.com/cyverse-austria/aTrain.git@docker --extra-index-url https://download.pytorch.org/whl/cu118
+RUN pip install aTrain@git+https://github.com/cyverse-austria/aTrain.git@docker --extra-index-url https://download.pytorch.org/whl/cu118
+RUN /home/atrainuser/.local/bin/aTrain init
 
 # Expose port 8080
 EXPOSE 8080
 
 # Set entry point for the container
 ENTRYPOINT ["/home/atrainuser/.local/bin/aTrain", "startserver"]
+
+# outputs
+# /home/atrainuser/.local/bin/aTrain/transcriptions
