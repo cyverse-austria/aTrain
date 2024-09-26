@@ -25,7 +25,7 @@ USER $USERNAME
 WORKDIR /home/workspace/
 
 # Install Python dependencies without caching
-RUN pip install aTrain@git+https://github.com/cyverse-austria/aTrain.git@docker --extra-index-url https://download.pytorch.org/whl/cu118
+RUN pip install aTrain@git+https://github.com/cyverse-austria/aTrain.git@working --extra-index-url https://download.pytorch.org/whl/cu118
 RUN /home/atrainuser/.local/bin/aTrain init
 
 # Expose port 8080

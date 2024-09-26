@@ -1,6 +1,7 @@
 import os
 import shutil
 from showinfm import show_in_file_manager
+from flask import send_from_directory
 import yaml
 from datetime import datetime
 
@@ -84,9 +85,12 @@ def delete_transcription(file_id):
     
 def open_file_directory(file_id):
     file_id = "" if file_id == "all" else file_id
-    directory_name = os.path.join(TRANSCRIPT_DIR,file_id)
+    directory_name = os.path.join(TRANSCRIPT_DIR, file_id)
     if os.path.exists(directory_name):
-        show_in_file_manager(directory_name)
+        # Serve the file or directory as a downloadable link
+        return send_from_directory(TRANSCRIPT_DIR, file_id)
+    else:
+        return "File not found", 404
 
 if __name__ == "__main__":
     ...
